@@ -29,8 +29,15 @@
              $repos=$data['repositories'];
              for($i=0;$i<sizeof($repos);$i++)
 	         {
-
+               $rows=$this->db->get_where("repos",array("owner"=>$repos[$i]['owner'],"name"=>$repos[$i]['name']))->num_rows();
+               if($rows==1)
 	           $this->db->update("repos",$repos[$i],array("owner"=>$repos[$i]['owner'],"name"=>$repos[$i]['name']));
+	           else
+	           {
+
+	           $this->db->insert("repos",$repos[$i]);
+
+	           }
 
 
 	         }
